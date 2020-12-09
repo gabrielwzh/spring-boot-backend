@@ -13,7 +13,8 @@ spring:
     show-sql: true
 jasypt:
   encryptor:
-    password: ${JASYPT_PASS}
+    password: secretpass
+    #    password: ${JASYPT_PASS}
 server:
   port: 8080
 
