@@ -1,6 +1,5 @@
 package com.springbootbackend.service;
 
-import com.springbootbackend.model.ResponseModel;
 import com.springbootbackend.model.Users;
 import com.springbootbackend.resource.UsersResource;
 import org.slf4j.Logger;
@@ -33,27 +32,25 @@ public class UsersService {
             String url = "https://spring-boot-jwt.herokuapp.com/authenticate";
             ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
             return response.getBody();
-//            ResponseEntity<ResponseModel> response = restTemplate.postForEntity(url, entity, ResponseModel.class);
         } catch(NullPointerException | DataAccessException e) {
             log.error(String.format("auth req exception - service", e.getLocalizedMessage()));
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "auth failed service");
         }
     }
 
-//    public String addUser(String jwt) {
-//        try {
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-//            headers.add("Content-Type", "application/json");
-//            headers.add("Authorization", jwt);
-//            HttpEntity entity = new HttpEntity(headers);
-//            String url = "https://spring-boot-jwt.herokuapp.com/greeting";
-//            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
-//            return response.getBody();
-////            ResponseEntity<ResponseModel> response = restTemplate.postForEntity(url, entity, ResponseModel.class);
-//        } catch(NullPointerException | DataAccessException e) {
-//            log.error(String.format("add user req exception - service", e.getLocalizedMessage()));
-//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "auth failed service");
-//        }
-//    }
+    public String addUser(String jwt) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            headers.add("Content-Type", "application/json");
+            headers.add("Authorization", jwt);
+            HttpEntity entity = new HttpEntity(headers);
+            String url = "https://spring-boot-jwt.herokuapp.com/greeting";
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            return response.getBody();
+        } catch(NullPointerException | DataAccessException e) {
+            log.error(String.format("add user req exception - service", e.getLocalizedMessage()));
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "auth failed service");
+        }
+    }
 }
