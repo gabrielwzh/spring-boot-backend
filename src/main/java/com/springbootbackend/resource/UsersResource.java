@@ -1,7 +1,7 @@
 package com.springbootbackend.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.springbootbackend.model.Users;
+import com.springbootbackend.model.UsersEntity;
 import com.springbootbackend.repository.UsersRepository;
 import com.springbootbackend.service.UsersService;
 import org.slf4j.Logger;
@@ -39,12 +39,12 @@ public class UsersResource {
 
 
     @GetMapping(value = "/users")
-    public List<Users> listUsers() {
+    public List<UsersEntity> listUsers() {
         return usersRepository.findAll();
     }
 
     @PostMapping(value = "/register")
-    public List<Users> addUsers(@Validated @RequestBody Users users) {
+    public List<UsersEntity> addUsers(@Validated @RequestBody UsersEntity users) {
         usersRepository.save(users);
         return usersRepository.findAll();
     }
@@ -57,7 +57,7 @@ public class UsersResource {
 
 
     @PostMapping(value = "/authenticate")
-    public String userAuthenticate(@Validated @RequestBody Users users) {
+    public String userAuthenticate(@Validated @RequestBody UsersEntity users) {
         try {
             log.info("authenticate request");
             return usersService.userAuthenticate(users);

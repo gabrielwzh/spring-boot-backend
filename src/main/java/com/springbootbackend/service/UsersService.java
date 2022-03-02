@@ -1,6 +1,6 @@
 package com.springbootbackend.service;
 
-import com.springbootbackend.model.Users;
+import com.springbootbackend.model.UsersEntity;
 import com.springbootbackend.resource.UsersResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +23,12 @@ public class UsersService {
     private static final Logger log = LoggerFactory.getLogger(UsersResource.class);
 
 
-    public String userAuthenticate(Users users) {
+    public String userAuthenticate(UsersEntity users) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             headers.add("Content-Type", "application/json");
-            HttpEntity<Users> entity = new HttpEntity<Users>(users, headers);
+            HttpEntity<UsersEntity> entity = new HttpEntity<UsersEntity>(users, headers);
             String url = "https://spring-boot-jwt.herokuapp.com/authenticate";
             ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
             return response.getBody();

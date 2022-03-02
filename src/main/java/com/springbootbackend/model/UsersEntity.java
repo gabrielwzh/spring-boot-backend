@@ -4,13 +4,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="usersLogin")
-public class Users {
+public class UsersEntity {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "username", length = 50, nullable = false)
     private String username;
+
+    @Column(name = "password", length = 20, nullable = false)
     private String password;
 
     public Integer getId() {
